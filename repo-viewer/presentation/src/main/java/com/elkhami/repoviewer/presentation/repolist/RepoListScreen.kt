@@ -37,9 +37,11 @@ import androidx.paging.compose.itemKey
 import com.elkhami.core.presentation.components.PullToRefreshPaginatedLazyColumn
 import com.elkhami.core.presentation.components.RepoItem
 import com.elkhami.core.presentation.components.ShowLoading
+import com.elkhami.core.presentation.components.TopBarComposable
 import com.elkhami.core.presentation.designsystem.LocalDimensions
 import com.elkhami.core.presentation.designsystem.LocalPadding
 import com.elkhami.core.presentation.designsystem.Padding
+import com.elkhami.core.presentation.designsystem.RepoviewerTheme
 import com.elkhami.core.presentation.extentions.rememberLazyListState
 import com.elkhami.core.presentation.ui.asUiText
 import com.elkhami.repoviewer.presentation.NetworkMonitor
@@ -84,8 +86,19 @@ fun RepoListScreen(
     val padding = LocalPadding.current
     val context = LocalContext.current
 
-    HandleNetworkState(context, repoItems)
+    var shouldRefresh by remember { mutableStateOf(false) }
 
+    HandleNetworkState(
+        context = context,
+        onReconnect = { shouldRefresh = true }
+    )
+
+    LaunchedEffect(shouldRefresh) {
+        if (shouldRefresh) {
+            repoItems.refresh()
+            shouldRefresh = false
+        }
+    }
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = repoItems.loadState.mediator) {
@@ -119,9 +132,13 @@ fun RepoListScreen(
             when (repoItems.loadState.mediator?.refresh) {
                 is LoadState.Error -> {
                     Text(
-                        stringResource(R.string.no_repos_yet),
-                        modifier = Modifier.padding(padding.mediumPadding),
-                        style = MaterialTheme.typography.bodyMedium
+                        text = stringResource(R.string.no_repos_yet),
+                        modifier = Modifier
+                            .padding(padding.largePadding)
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
                     )
                 }
 
@@ -134,28 +151,6 @@ fun RepoListScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun TopBarComposable(
-    modifier: Modifier = Modifier,
-    padding: Padding,
-    name: String,
-) {
-    val dimensions = LocalDimensions.current
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .height(dimensions.topBarHeight)
-            .padding(horizontal = padding.mediumPadding)
-    ) {
-        Text(
-            text = name,
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.align(Alignment.Center)
-        )
     }
 }
 
@@ -192,27 +187,31 @@ fun RepoListComposable(
                         start = padding.mediumPadding,
                         end = padding.mediumPadding
                     ),
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.outlineVariant,
                     thickness = dimensions.dividerThickness
                 )
+
             }
         }
     )
 }
 
 @Composable
-fun HandleNetworkState(context: Context, repoItems: LazyPagingItems<GitRepoUiModel>) {
+fun HandleNetworkState(
+    context: Context,
+    onReconnect: () -> Unit
+) {
     var isConnected by remember { mutableStateOf(false) }
     var wasPreviouslyOffline by remember { mutableStateOf(false) }
 
     val networkMonitor = remember {
-        NetworkMonitor(context, onNetworkStatusChanged = { isOnline ->
+        NetworkMonitor(context) { isOnline ->
             if (isOnline && wasPreviouslyOffline) {
-                repoItems.refresh()
+                onReconnect()
             }
             isConnected = isOnline
             wasPreviouslyOffline = !isOnline
-        })
+        }
     }
 
     DisposableEffect(context) {
@@ -223,19 +222,20 @@ fun HandleNetworkState(context: Context, repoItems: LazyPagingItems<GitRepoUiMod
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun RepoListScreenPreview() {
-    val repos = listOf(
-        GitRepoUiModel(1, "Repo 1", "Description for repo 1"),
-        GitRepoUiModel(2, "Repo 2", "Description for repo 2"),
-        GitRepoUiModel(3, "Repo 3", "Description for repo 3")
-    )
+    RepoviewerTheme {
+        val repos = listOf(
+            GitRepoUiModel(1, "Repo 1", "Description for repo 1"),
+            GitRepoUiModel(2, "Repo 2", "Description for repo 2"),
+            GitRepoUiModel(3, "Repo 3", "Description for repo 3")
+        )
+        val pagingData = flowOf(PagingData.from(repos))
 
-    val pagingData = flowOf(PagingData.from(repos))
-
-    RepoListScreen(
-        pagingData = pagingData,
-        onAction = {}
-    )
+        RepoListScreen(
+            pagingData = pagingData,
+            onAction = {}
+        )
+    }
 }

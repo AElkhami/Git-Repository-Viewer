@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.elkhami.core.data.networking.extractLastPageNumber
-import com.elkhami.core.database.AbnRepoDatabase
+import com.elkhami.core.database.RepoViewerDatabase
 import com.elkhami.core.database.entity.GitRepoEntity
 import com.elkhami.core.domain.util.Result
 import com.elkhami.repoviewer.data.mappers.toGitRepoEntity
@@ -21,7 +21,7 @@ import java.io.IOException
 @OptIn(ExperimentalPagingApi::class)
 class GitReposRemoteMediator(
     private val remoteDataSource: GitReposDataSource,
-    private val gitRepoDatabase: AbnRepoDatabase
+    private val gitRepoDatabase: RepoViewerDatabase
 ) : RemoteMediator<Int, GitRepoEntity>() {
 
     private val gitRepoDao = gitRepoDatabase.gitRepoDao

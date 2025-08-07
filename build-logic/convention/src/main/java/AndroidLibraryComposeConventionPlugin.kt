@@ -8,7 +8,7 @@ class AndroidLibraryComposeConventionPlugin: Plugin<Project> {
     override fun apply(target: Project) {
         target.run{
             pluginManager.run {
-                apply("abnrepoviewer.android.library")
+                apply("repoviewer.android.library")
                 apply("org.jetbrains.kotlin.plugin.compose")
             }
 

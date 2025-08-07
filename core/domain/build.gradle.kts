@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.abnrepoviewer.jvm.library)
+    alias(libs.plugins.repoviewer.jvm.library)
 }
 
 dependencies{

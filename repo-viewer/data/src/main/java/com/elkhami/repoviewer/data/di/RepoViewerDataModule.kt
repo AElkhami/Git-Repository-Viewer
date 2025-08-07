@@ -3,7 +3,7 @@ package com.elkhami.repoviewer.data.di
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.elkhami.core.database.AbnRepoDatabase
+import com.elkhami.core.database.RepoViewerDatabase
 import com.elkhami.repoviewer.data.remote.GitReposDataSource
 import com.elkhami.repoviewer.data.paging.GitReposRemoteMediator
 import com.elkhami.repoviewer.data.paging.PagingConstants.DEFAULT_PAGE_SIZE
@@ -13,7 +13,7 @@ import org.koin.dsl.module
 @OptIn(ExperimentalPagingApi::class)
 val repoViewerDataModule = module {
     singleOf(::GitReposDataSource)
-    singleOf(::GitReposRemoteMediator)
+
     single {
         Pager(
             config = PagingConfig(
@@ -21,7 +21,7 @@ val repoViewerDataModule = module {
             ),
             remoteMediator = GitReposRemoteMediator(get(), get()),
             pagingSourceFactory = {
-                get<AbnRepoDatabase>().gitRepoDao.getGitRepoList()
+                get<RepoViewerDatabase>().gitRepoDao.getGitRepoList()
             }
         )
     }

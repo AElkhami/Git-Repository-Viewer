@@ -9,7 +9,7 @@ class AndroidApplicationComposeConventionPlugin: Plugin<Project> {
         target.run{
 
             pluginManager.run{
-                apply("abnrepoviewer.android.application")
+                apply("repoviewer.android.application")
                 apply("org.jetbrains.kotlin.plugin.compose")
             }
 

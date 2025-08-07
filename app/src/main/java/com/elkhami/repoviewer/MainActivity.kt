@@ -1,4 +1,4 @@
-package com.elkhami.abnrepoviewer
+package com.elkhami.repoviewer
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.elkhami.core.presentation.designsystem.AbnRepoViewerTheme
+import com.elkhami.core.presentation.designsystem.RepoviewerTheme
 import com.elkhami.repoviewer.presentation.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.rememberNavHostEngine
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AbnRepoViewerTheme {
+            RepoviewerTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

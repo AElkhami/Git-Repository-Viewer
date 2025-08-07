@@ -7,8 +7,9 @@ import androidx.compose.ui.unit.dp
 data class Dimensions(
     val imageSize: Dp = 50.dp,
     val imageSizeLarge: Dp = 120.dp,
-    val dividerThickness: Dp = 1.dp,
-    val topBarHeight: Dp = 56.dp
+    val dividerThickness: Dp = 0.5.dp,
+    val topBarHeight: Dp = 56.dp,
+    val mediumPadding: Dp = 8.dp
 )
 
 val LocalDimensions = compositionLocalOf { Dimensions() }

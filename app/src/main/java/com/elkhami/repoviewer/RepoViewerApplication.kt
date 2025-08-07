@@ -1,4 +1,4 @@
-package com.elkhami.abnrepoviewer
+package com.elkhami.repoviewer
 
 import android.app.Application
 import com.elkhami.core.data.di.coreDataModule
@@ -10,7 +10,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class AbnRepoViewerApplication: Application() {
+class RepoViewerApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
@@ -20,7 +20,7 @@ class AbnRepoViewerApplication: Application() {
 
         startKoin {
             androidLogger()
-            androidContext(this@AbnRepoViewerApplication)
+            androidContext(this@RepoViewerApplication)
             modules(
                 coreDataModule,
                 repoViewerViewModelModule,

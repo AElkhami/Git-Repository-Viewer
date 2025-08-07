@@ -9,7 +9,8 @@ data class Padding(
     val verySmallPadding: Dp = 4.dp,
     val smallPadding: Dp = 8.dp,
     val mediumPadding: Dp = 16.dp,
-    val largePadding: Dp = 32.dp
+    val largePadding: Dp = 32.dp,
+    val extraLargePadding: Dp = 64.dp
 )
 
 val LocalPadding = compositionLocalOf { Padding() }

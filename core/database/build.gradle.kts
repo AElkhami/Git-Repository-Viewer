@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.abnrepoviewer.android.library)
-    alias(libs.plugins.abnrepoviewer.android.room)
+    alias(libs.plugins.repoviewer.android.library)
+    alias(libs.plugins.repoviewer.android.room)
 }
 
 android {

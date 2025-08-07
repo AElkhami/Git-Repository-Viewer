@@ -1,7 +1,7 @@
 plugins {
-    alias(libs.plugins.abnrepoviewer.android.library)
-    alias(libs.plugins.abnrepoviewer.jvm.ktor)
-    alias(libs.plugins.abnrepoviewer.jvm.junit5)
+    alias(libs.plugins.repoviewer.android.library)
+    alias(libs.plugins.repoviewer.jvm.ktor)
+    alias(libs.plugins.repoviewer.jvm.junit5)
 }
 
 android {

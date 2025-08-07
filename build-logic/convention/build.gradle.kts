@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.elkhami.abnrepoviewer.buildlogic"
+group = "com.elkhami.repoviewer.buildlogic"
 
 dependencies{
     compileOnly(libs.room.gradlePlugin)
@@ -15,43 +15,43 @@ dependencies{
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "abnrepoviewer.android.application"
+            id = "repoviewer.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidApplicationCompose"){
-            id = "abnrepoviewer.android.application.compose"
+            id = "repoviewer.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
         register("androidLibrary"){
-            id = "abnrepoviewer.android.library"
+            id = "repoviewer.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidLibraryCompose"){
-            id = "abnrepoviewer.android.library.compose"
+            id = "repoviewer.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidFeatureUi"){
-            id = "abnrepoviewer.android.feature.ui"
+            id = "repoviewer.android.feature.ui"
             implementationClass = "AndroidFeatureUiConventionPlugin"
         }
         register("jvmLibrary"){
-            id = "abnrepoviewer.jvm.library"
+            id = "repoviewer.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
         register("jvmKtor"){
-            id = "abnrepoviewer.jvm.ktor"
+            id = "repoviewer.jvm.ktor"
             implementationClass = "JvmKtorConventionPlugin"
         }
         register("jvmJunit5") {
-            id = "abnrepoviewer.jvm.junit5"
+            id = "repoviewer.jvm.junit5"
             implementationClass = "JvmJUnit5ConventionPlugin"
         }
         register("androidJunit5") {
-            id = "abnrepoviewer.android.junit5"
+            id = "repoviewer.android.junit5"
             implementationClass = "AndroidJUnit5ConventionPlugin"
         }
         register("androidRoom") {
-            id = "abnrepoviewer.android.room"
+            id = "repoviewer.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
     }
