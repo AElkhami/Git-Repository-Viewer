@@ -44,14 +44,13 @@ class RepoListScreenTest {
     fun repoListScreen_displaysRepositoryList() {
         // Given
         val pagingData = flowOf(PagingData.from(testRepos))
-        var capturedAction: RepoListAction? = null
 
         // When
         composeTestRule.setContent {
             RepoviewerTheme {
                 RepoListScreen(
                     pagingData = pagingData,
-                    onAction = { action -> capturedAction = action }
+                    onAction = { action -> }
                 )
             }
         }
@@ -91,14 +90,13 @@ class RepoListScreenTest {
     fun repoListScreen_showsTopBar() {
         // Given
         val pagingData = flowOf(PagingData.from(testRepos))
-        var capturedAction: RepoListAction? = null
 
         // When
         composeTestRule.setContent {
             RepoviewerTheme {
                 RepoListScreen(
                     pagingData = pagingData,
-                    onAction = { action -> capturedAction = action }
+                    onAction = { action ->  }
                 )
             }
         }

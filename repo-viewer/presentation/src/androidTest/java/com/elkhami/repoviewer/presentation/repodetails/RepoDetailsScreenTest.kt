@@ -28,15 +28,12 @@ class RepoDetailsScreenTest {
 
     @Test
     fun repoDetailsScreen_displaysRepositoryInformation() {
-        // Given
-        var backButtonClicked = false
-
         // When
         composeTestRule.setContent {
             RepoviewerTheme {
                 RepoDetailsScreen(
                     repoModel = testRepo,
-                    onBackClick = { backButtonClicked = true }
+                    onBackClick = {}
                 )
             }
         }
@@ -69,15 +66,12 @@ class RepoDetailsScreenTest {
 
     @Test
     fun repoDetailsScreen_webButtonDoesNotExist_whenUrlNotProvided() {
-        // Given
-        var backButtonClicked = false
-
         // When
         composeTestRule.setContent {
             RepoviewerTheme {
                 RepoDetailsScreen(
                     repoModel = testRepo,
-                    onBackClick = { backButtonClicked = true }
+                    onBackClick = {  }
                 )
             }
         }
