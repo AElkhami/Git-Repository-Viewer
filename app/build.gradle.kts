@@ -1,11 +1,11 @@
 plugins {
-    alias(libs.plugins.abnrepoviewer.android.application.compose)
-    alias(libs.plugins.abnrepoviewer.jvm.ktor)
+    alias(libs.plugins.repoviewer.android.application.compose)
+    alias(libs.plugins.repoviewer.jvm.ktor)
 }
 
 android {
 
-    namespace = "com.elkhami.abnrepoviewer"
+    namespace = "com.elkhami.repoviewer"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

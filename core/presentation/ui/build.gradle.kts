@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.abnrepoviewer.android.library.compose)
+    alias(libs.plugins.repoviewer.android.library.compose)
 }
 
 android {

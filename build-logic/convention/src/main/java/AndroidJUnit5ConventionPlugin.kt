@@ -7,7 +7,7 @@ class AndroidJUnit5ConventionPlugin: Plugin<Project> {
 
     override fun apply(target: Project) {
         target.run {
-            pluginManager.apply("abnrepoviewer.jvm.junit5")
+            pluginManager.apply("repoviewer.jvm.junit5")
             pluginManager.apply("de.mannodermaus.android-junit5")
 
             dependencies {

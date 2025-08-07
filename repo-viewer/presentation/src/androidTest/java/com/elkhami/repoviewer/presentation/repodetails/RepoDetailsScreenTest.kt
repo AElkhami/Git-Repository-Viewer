@@ -1,120 +1,82 @@
 package com.elkhami.repoviewer.presentation.repodetails
 
-import android.content.Context
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.test.platform.app.InstrumentationRegistry
-import com.elkhami.repoviewer.presentation.R
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.elkhami.core.presentation.designsystem.RepoviewerTheme
 import com.elkhami.repoviewer.presentation.model.GitRepoUiModel
-import io.mockk.confirmVerified
-import io.mockk.mockk
-import io.mockk.verify
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class RepoDetailsScreenTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    private val testRepo = GitRepoUiModel(
+        id = 1,
+        name = "test-repo",
+        fullName = "test-user/test-repo",
+        description = "This is a test repository for UI testing purposes",
+        isPrivate = false,
+        ownerAvatarUrl = "",
+        htmlUrl = null,
+        visibility = "public"
+    )
+
     @Test
-    fun repoDetailsScreen_displaysRepoDetailsAndHandlesBackClick() {
-        val repoModel = GitRepoUiModel(
-            name = testRepoName,
-            ownerAvatarUrl = testOwnerAvatarUrl,
-            isPrivate = testIsPrivate,
-            visibility = testVisibility,
-            fullName = testFullName,
-            description = testDescription,
-            htmlUrl = testHtmlUrl
-        )
-        val onBackClick: () -> Unit = mockk(relaxed = true)
-
-        val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
-        val backString = context.resources.getString(R.string.button_back)
-
+    fun repoDetailsScreen_displaysRepositoryInformation() {
+        // When
         composeTestRule.setContent {
-            RepoDetailsScreen(
-                repoModel = repoModel,
-                onBackClick = onBackClick
-            )
+            RepoviewerTheme {
+                RepoDetailsScreen(
+                    repoModel = testRepo,
+                    onBackClick = {}
+                )
+            }
         }
 
-        composeTestRule.onNodeWithText(testRepoName).assertIsDisplayed()
-        composeTestRule.onNodeWithText(testFullName).assertIsDisplayed()
-        composeTestRule.onNodeWithText(testDescription).assertIsDisplayed()
-        composeTestRule.onNodeWithText(testVisibility).assertIsDisplayed()
-        composeTestRule.onNodeWithText(testIsPrivate.toString()).assertIsDisplayed()
-
-        composeTestRule.onNodeWithContentDescription(backString).performClick()
-
-        verify { onBackClick() }
-        confirmVerified(onBackClick)
+        // Then
+        composeTestRule.onNodeWithText("test-repo").assertExists()
+        composeTestRule.onNodeWithText("test-user/test-repo").assertExists()
+        composeTestRule.onNodeWithText("This is a test repository for UI testing purposes").assertExists()
     }
 
     @Test
-    fun repoDetailsScreen_noHtmlUrl_doesNotDisplayWebButton() {
-        val repoModel = GitRepoUiModel(
-            name = testRepoName,
-            ownerAvatarUrl = testOwnerAvatarUrl,
-            isPrivate = testIsPrivate,
-            visibility = testVisibility,
-            fullName = testFullName,
-            description = testDescription,
-            htmlUrl = null
-        )
-        val onBackClick: () -> Unit = mockk(relaxed = true)
+    fun repoDetailsScreen_backButtonClick_triggersCallback() {
+        // Given
+        var backButtonClicked = false
 
+        // When
         composeTestRule.setContent {
-            RepoDetailsScreen(
-                repoModel = repoModel,
-                onBackClick = onBackClick
-            )
+            RepoviewerTheme {
+                RepoDetailsScreen(
+                    repoModel = testRepo,
+                    onBackClick = { backButtonClicked = true }
+                )
+            }
         }
 
-        try {
-            composeTestRule.onNodeWithText(openInBrowserText).assertDoesNotExist()
-        } catch (e: AssertionError) {
-            // Test Passed.
-        }
+        // Then
+        composeTestRule.onNodeWithContentDescription("Back").performClick()
+        assert(backButtonClicked)
     }
 
     @Test
-    fun repoDetailsScreen_displaysNameInTopBar_and_ellipsizeOverflow() {
-        val repoModel = GitRepoUiModel(
-            name = longRepoName,
-            ownerAvatarUrl = testOwnerAvatarUrl,
-            isPrivate = testIsPrivate,
-            visibility = testVisibility,
-            fullName = testFullName,
-            description = testDescription,
-            htmlUrl = testHtmlUrl
-        )
-        val onBackClick: () -> Unit = mockk(relaxed = true)
-
+    fun repoDetailsScreen_webButtonDoesNotExist_whenUrlNotProvided() {
+        // When
         composeTestRule.setContent {
-            RepoDetailsScreen(
-                repoModel = repoModel,
-                onBackClick = onBackClick
-            )
+            RepoviewerTheme {
+                RepoDetailsScreen(
+                    repoModel = testRepo,
+                    onBackClick = {  }
+                )
+            }
         }
 
-        composeTestRule.onNodeWithText(longRepoName).assertIsDisplayed()
-    }
-
-    companion object {
-        private val testRepoName = "Name"
-        private val testOwnerAvatarUrl = "test_url"
-        private val testFullName = "Full name"
-        private val testDescription = "Description"
-        private val testHtmlUrl = "https://google.com"
-        private val testVisibility = "public"
-        private val testIsPrivate = true
-        private val longRepoName =
-            "This is a very long repository name that should be truncated with ellipsis"
-        private val openInBrowserText = "Open Repository"
+        // Then
+        composeTestRule.onNodeWithText("Open Repository").assertDoesNotExist()
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,16 +32,15 @@ fun <T : Any> PullToRefreshPaginatedLazyColumn(
     val pullToRefreshState = rememberPullToRefreshState()
     var isRefreshing by remember { mutableStateOf(false) }
 
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        refreshAction()
-        isRefreshing = false
+    // Track load state to reflect proper refresh state
+    LaunchedEffect(lazyPagingItems.loadState.refresh) {
+        isRefreshing = lazyPagingItems.loadState.refresh is LoadState.Loading
     }
 
     PullToRefreshBox(
         modifier = modifier,
         isRefreshing = isRefreshing,
-        onRefresh = { onRefresh() },
+        onRefresh = refreshAction,
         state = pullToRefreshState
     ) {
         LazyColumn(
@@ -51,8 +51,7 @@ fun <T : Any> PullToRefreshPaginatedLazyColumn(
                 count = lazyPagingItems.itemCount,
                 key = key
             ) { index ->
-                val item = lazyPagingItems[index]
-                item?.let {
+                lazyPagingItems[index]?.let {
                     listItemContent(it, index)
                 }
             }

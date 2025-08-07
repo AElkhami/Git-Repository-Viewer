@@ -9,6 +9,6 @@ import com.elkhami.core.database.entity.GitRepoEntity
     entities = [GitRepoEntity::class],
     version = 1
 )
-abstract class AbnRepoDatabase : RoomDatabase() {
+abstract class RepoViewerDatabase : RoomDatabase() {
     abstract val gitRepoDao: GitRepoDao
 }

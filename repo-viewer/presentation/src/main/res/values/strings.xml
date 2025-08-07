@@ -2,7 +2,6 @@
 <resources>
     <string name="no_browser">Error: there is no browser found on your device</string>
     <string name="item_private">Private:\u00A0</string>
-    <string name="app_title">Abn Rep Viewer</string>
+    <string name="app_title">Repository Viewer</string>
     <string name="no_repos_yet">There is no repositories available yet&#8230;</string>
-    <string name="button_back">Back</string>
 </resources>
