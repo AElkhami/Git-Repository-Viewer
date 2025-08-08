@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.coil.compose)
     implementation(libs.androidx.paging.compose.android)
+    implementation(libs.bundles.koin)
     debugImplementation(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.material3)
 }

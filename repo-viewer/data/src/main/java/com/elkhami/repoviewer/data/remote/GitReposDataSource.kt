@@ -14,6 +14,6 @@ class GitReposDataSource(private val httpClient: HttpClient) {
     }
 
     companion object {
-        const val ROUTE = "/users/abnamrocoesd/repos"
+        const val ROUTE = "/users/AElkhami/repos"
     }
 }
