@@ -161,7 +161,8 @@ ktor = [
 koin = [
     "koin-android",
     "koin-android-workmanager",
-    "koin-core"
+    "koin-core",
+    "koin-androidx-compose"
 ]
 koin-compose = [
     "koin-android",
