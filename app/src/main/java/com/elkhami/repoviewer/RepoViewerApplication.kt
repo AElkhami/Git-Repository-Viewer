@@ -11,11 +11,11 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class RepoViewerApplication : Application() {
+class RepoViewerApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        if (BuildConfig.DEBUG) {
+        if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
 
