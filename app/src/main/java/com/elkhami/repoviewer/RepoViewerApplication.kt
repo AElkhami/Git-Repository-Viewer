@@ -3,6 +3,7 @@ package com.elkhami.repoviewer
 import android.app.Application
 import com.elkhami.core.data.di.coreDataModule
 import com.elkhami.core.database.di.databaseModule
+import com.elkhami.core.presentation.di.uiComponentsModule
 import com.elkhami.repoviewer.data.di.repoViewerDataModule
 import com.elkhami.repoviewer.presentation.di.repoViewerViewModelModule
 import timber.log.Timber
@@ -22,6 +23,7 @@ class RepoViewerApplication: Application() {
             androidLogger()
             androidContext(this@RepoViewerApplication)
             modules(
+                uiComponentsModule,
                 coreDataModule,
                 repoViewerViewModelModule,
                 repoViewerDataModule,
