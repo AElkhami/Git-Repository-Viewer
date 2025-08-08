@@ -10,8 +10,7 @@ A modern Android application to browse and explore GitHub public repositories, f
 
 <table>
   <tr>
-    <td><img src="https://github.com/AElkhami/ABN-RepoViewer/blob/develop/paging.gif" width="250"/></td>
-    <td><img src="https://github.com/AElkhami/ABN-RepoViewer/blob/develop/details.gif" width="250"/></td>
+    <td><img src="demo/app_demo.gif" width="250" alt="Repository details screen demo"/></td>
   </tr>
 </table>
 
@@ -104,15 +103,15 @@ Several additional enhancements were made to reflect modern development best pra
 
 ## 🔧 Technologies
 
-| Layer         | Libraries |
-|---------------|-----------|
-| UI            | Jetpack Compose, Material3, Coil |
-| DI            | Koin |
-| Networking    | Ktor |
-| Persistence   | Room, Paging 3 |
-| Asynchronous  | Kotlin Coroutines, Flow |
-| Architecture  | MVVM + MVI, Clean Architecture |
-| Modularization| Multi-module hybrid |
+| Layer          | Libraries                        |
+|----------------|----------------------------------|
+| UI             | Jetpack Compose, Material3, Coil |
+| DI             | Koin                             |
+| Networking     | Ktor                             |
+| Persistence    | Room, Paging 3                   |
+| Asynchronous   | Kotlin Coroutines, Flow          |
+| Architecture   | MVVM + MVI, Clean Architecture   |
+| Modularization | Multi-module hybrid              |
 
 ---
 
